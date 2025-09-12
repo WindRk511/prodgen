@@ -1,5 +1,5 @@
 #!/bin/bash
-
+##
 #typedef struct produit {
 #	char nom[20];
 #	int type;
