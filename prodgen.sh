@@ -10,6 +10,7 @@
 
 
 #read -n "Entrer le nom du fichier" fichier
+cp tubercule.c tubercule-test.c
 fichier=tubercule-test.c
 
 #recupère le variable de contient le nombre de produit disponible
@@ -20,7 +21,7 @@ n1=$(($n+1)) 	#incremente le
 sed -i s/NBR=${n}/NBR=${n1}/ $fichier
 
 #suprime le accolade fermé
-sed -i d/"}"/ $fichier
+sed -i /"}"/d $fichier
 
 ### GENERATION DE NOUVEAU PRODUIT ###
 
@@ -56,7 +57,7 @@ echo "___Choisir le sol compatible à ce culture___"
 
 p_sol=$((-1))
 #while [[ ${p_sol} -lt 0 ]] || [[ ${p_sol} -gt 4 ]] || [[ ! ${p_sol} =~ ^[0-9]+$ ]]
-while (1)
+while (true)
 do
 	echo -e "\n"
 	echo "1) Sol sableux"
@@ -71,20 +72,57 @@ do
 	NSOL=$(echo $p_sol | tr ',' '\n' | wc -l)
 	echo "le $NSOL"
 	i=1
-	while [[ $i -lt $NSOL ]]
+	while [[ $i -le $NSOL ]]
 	do
-		p_sol$i=$(echo $p_sol | cut -d"," -f $i )
-		ref=$p_sol$i
-		if [[ $ref -lt 0 ]] || [[ $ref -gt 4 ]] || [[ ! "${ref}" =~ ^[0-9]+$ ]]; then
+		ref=$(echo $p_sol | cut -d"," -f $i )
+		if [[ $p_type -lt 0 ]] || [[ $p_type -gt 6 ]] || [[ ! "${p_type}" =~ ^[0-9]+$ ]]
+		then
 			echo "\e[31mCHOIX ${i} INCORRECT !!!\e[0m\n"
 			echo "Rechoisir svp"
 			echo "Choix le numero de le type"
 			break
 		fi
-		((i++))
+		i=$((i+1))
 	done
 	if [[ $i -ge $NSOL ]]; then
+		echo "le nombre de choix du type du sol est $NSOL"
 		break
 	fi
-	echo "le nombre de choix du type du sol est $NSOL"
 done
+
+#ajout le saison favorable
+echo "___CHOISIR LE SAISON FAVORABLE___"
+while (true)
+do
+	echo -e "\n"
+	echo "1) Sol sableux"
+	echo "2) Sol argileux"
+	echo "3) Sol limoneux"
+	echo "4)Sol humifère (ou organique)"
+	echo "0) INDEFINIT"
+	echo -n "Entrer votre choix "
+	echo -ne "(NB:Si choix multiple,separer par virgule) : "
+	read p_sol
+	
+	NSOL=$(echo $p_sol | tr ',' '\n' | wc -l)
+	echo "le $NSOL"
+	i=1
+	while [[ $i -le $NSOL ]]
+	do
+		ref=$(echo $p_sol | cut -d"," -f $i )
+		if [[ $p_type -lt 0 ]] || [[ $p_type -gt 6 ]] || [[ ! "${p_type}" =~ ^[0-9]+$ ]]
+		then
+			echo "\e[31mCHOIX ${i} INCORRECT !!!\e[0m\n"
+			echo "Rechoisir svp"
+			echo "Choix le numero de le type"
+			break
+		fi
+		i=$((i+1))
+	done
+	if [[ $i -ge $NSOL ]]; then
+		echo "le nombre de choix du type du sol est $NSOL"
+		break
+	fi
+done
+
+
