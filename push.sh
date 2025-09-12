@@ -1,6 +1,6 @@
 #!/bin/bash
 
-file=$(ls | grep -v "$0" )
+file=$(ls | grep -v "push.sh" )
 git add $file
-git commit -m "0"
-git push
+git commit -m "ui"
+git push -u origin master
