@@ -18,7 +18,8 @@ BLANC="\e[0m"
 #read -n "Entrer le nom du fichier" fichier
 #cp tubercule.c tubercule-test.c
 
-source gen_text.sh # fichier contenant de text à generer
+source outil/gen_text.sh # fichier contenant de text à generer
+
 if [[ ! -e "produit_bib" ]]
 then
 	mkdir produit_bib
@@ -40,7 +41,7 @@ read -p "Entrer le nom de produit en français : " p_nom_fr
 read -p "Entrer leur nom en malagasy	     : " p_nom_mg
 read -p "Entrer leur nom en anglais          : " p_nom_en
 
-source p_menu.sh	# fichier contient de menu
+source outil/p_menu.sh	# fichier contient de menu
 #ajout leur type
 
 echo -e "$ORANGE"
@@ -174,7 +175,7 @@ do
 done
 
 #**verfiacation de choix
-source affichage_conven.sh
+source outil/affichage_conven.sh
 echo -e "\n=========================================================="
 echo -e "\n\e[2mVERFICATION DE CHOIX\e[0m" 
 echo "NOM: $p_nom_fr | $p_nom_mg | $p_nom_en"
