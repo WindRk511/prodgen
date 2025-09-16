@@ -16,27 +16,24 @@ ORANGE="\e[33m"
 BLANC="\e[0m"
 
 #read -n "Entrer le nom du fichier" fichier
-cp tubercule.c tubercule-test.c
+#cp tubercule.c tubercule-test.c
+
+source gen_text.sh # fichier contenant de text à generer
 fichier=tubercule-test.c
 
-#recupère le variable de contient le nombre de produit disponible
-n=$(grep "NBR=" tubercule.c | cut -d"=" -f2 | cut -d";" -f1)
-RANG=$(($n+1)) 	#incremente le
+if [[ ! -e $fichier ]]
+then
+	gen_entete $fichier
+fi
 
-#changer le nombre de produit
-sed -i s/NBR=${n}/NBR=${RANG}/ $fichier
-
-#suprime le accolade fermé
-sed -i /"}"/d $fichier
-
-### GENERATION DE NOUVEAU PRODUIT ###
+### CHOSIR LE NOM & L'AUTE CRITERE ###
 
 #ajout de nouveau produit
 read -p "Entrer le nom de produit en français : " p_nom_fr
 read -p "Entrer leur nom en malagasy	     : " p_nom_mg
 read -p "Entrer leur nom en anglais          : " p_nom_en
 
-source p_menu.sh
+source p_menu.sh	# fichier contient de menu
 #ajout leur type
 
 echo -e "$ORANGE"
@@ -45,7 +42,7 @@ echo -e "___Choisir le type de produit___$BLANC"
 p_type=$((-1))
 while [[ ${p_type} -lt 0 ]] || [[ ${p_type} -gt 6 ]] || [[ ! "${p_type}" =~ ^[0-9]+$ ]]
 do
-	mp_type
+	mp_type		# menu de type
 	read -n 2 -e -p "Entrer votre choix : " p_type
 
 	if [[ $p_type -lt 0 ]] || [[ $p_type -gt 6 ]] || [[ ! "${p_type}" =~ ^[0-9]+$ ]]
@@ -62,7 +59,7 @@ echo -e "___Choisir le sol compatible à ce culture___$BLANC"
 p_sol=$((-1))
 while (true)
 do
-	mp_sol
+	mp_sol		# menu du sol
 	echo -n "Entrer votre choix "
 	echo -ne "(NB:Si choix multiple,separer par virgule) : "
 	read p_sol
@@ -99,7 +96,7 @@ echo -e "$ORANGE"
 echo -e "___CHOISIR LE SAISON FAVORABLE___$BLANC"
 while (true)
 do
-	mp_saison
+	mp_saison	# menu du saison
 	echo "0) INDEFINIT"
 	echo -n "Entrer votre choix "
 	echo -ne "(NB:Si choix multiple,separer par virgule) : "
@@ -107,6 +104,7 @@ do
 	
 	NSAIS=$(echo $p_sais | tr ',' '\n' | wc -l)
 	i=1
+	t=1
 	while [[ $i -le $NSAIS ]]
 	do
 		ref=$(echo $p_sais | cut -d"," -f $i )
@@ -137,13 +135,14 @@ echo -e "___CHOISIR Le/LES MOIS___$BLANC"
 
 while (true)
 do
-	mp_mois
+	mp_mois		# menu du mois
 	echo -n "Entrer votre choix "
 	echo -ne "(NB:Si choix multiple,separer par virgule) : "
 	read p_mois
 	
 	NMOIS=$(echo $p_mois | tr ',' '\n' | wc -l)
 	i=1
+	t=1
 	while [[ $i -le $NMOIS ]]
 	do
 		ref=$(echo $p_mois | cut -d"," -f $i )
@@ -211,6 +210,8 @@ echo -n "MOIS :"
 	done
 
 echo ""
+
+#phrase de confirmation
 while (true)
 do
 	read -p " Est ce que tout est correcte ? (oui/non) : " v
@@ -219,7 +220,7 @@ do
 		break
 	elif [[ $v == "non" ]]
 	then
-		echo "Le programme s'arretté"
+		echo "processus annulé"
 		exit 1
 	fi
 	echo -e "$ROUGE Veuiller reponde oui ou non $BLANC"
@@ -227,47 +228,31 @@ done
 
 echo -e "==========================================================\n"
 
-## generation de text
+### GENERATION DE TEXT ###
 echo -n "Generation de text ... "
+
+#recupère le variable de contient le nombre de produit disponible
+RANG=$(grep "NBR=" $fichier | cut -d"=" -f2 | cut -d";" -f1)
+n=$(($n+1)) 	#incremente le
+
+#changer le nombre de produit
+sed -i s/NBR=${RANG}/NBR=${n}/ $fichier
+
+#suprime le accolade fermé
+sed -i /"}"/d $fichier
+
+## ajout de produit
+
 #pour langue fr
+gen_file $fichier $RANG $p_nom_fr $p_type $p_sol $p_sais $p_mois 
+echo -e "\n}">>$fichier
 
-#nom de produit
-echo -e "		strcy(tub->nom,$p_nom_fr)\;">>tubercule-test.c
-#echo "		strcy(tub[$RANG].nom,$p_nom_mg)\;">>tubercule-test.c
-#echo "		strcy(tub[$RANG].nom,$p_nom_en)\;">>tubercule-test.c
+#pour la langue mg
 
-# type de produit
-echo -e "	tub[$RANG].type=$p_type\;">>tubercule-test.c
-
-# type de sol favorable
-	i=1
-	while [[ $i -le $NSOL ]]
-	do
-		ref=$(echo $p_sol | cut -d"," -f $i )
-		echo "	tub[$RANG].sol[$((i-1))]=$ref\;">>tubercule-test.c
-		i=$(($i+1))
-	done
-
-# saison favorable
-	i=1
-	while [[ $i -le $NSAIS ]]
-	do
-		ref=$(echo $p_sais | cut -d"," -f $i )
-		echo -e "	tub[$RANG].sol[$((i-1))]=$ref\;">>tubercule-test.c
-		i=$(($i+1))
-	done
-# mois favorable
- 	i=1
-	while [[ $i -le $NMOIS ]]
-	do
-		ref=$(echo $p_mois | cut -d"," -f $i )
-		echo -e "	tub[$RANG].sol[$((i-1))]=$ref\;">>tubercule-test.c
-		i=$(($i+1))
-	done
-
-echo -e "\n}">>tubercule-test.c
+#pour la langue en
 
 #signale de terminaison
+sleep 0.5
 if [[ $? -eq 0 ]]
 then 
 	echo -e "\e[42m succes$BLANC"
