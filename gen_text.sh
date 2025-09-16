@@ -61,7 +61,7 @@ gen_entete () {
 	echo "{">>$1
 	echo "        int NBR;">>$1
 	echo "        NBR=0;">>$1
-	echo "        prod* tub = malloc(NBR*sizeof(prod));">>$1
+	echo "        prod* tub = malloc((NBR+1)*sizeof(prod));">>$1
 	echo "">>$1
 	echo "}">>$1
 }

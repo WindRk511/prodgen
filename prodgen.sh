@@ -19,12 +19,19 @@ BLANC="\e[0m"
 #cp tubercule.c tubercule-test.c
 
 source gen_text.sh # fichier contenant de text à generer
-fichier=tubercule-test.c
-
-if [[ ! -e $fichier ]]
+if [[ ! -e "produit_bib" ]]
 then
-	gen_entete $fichier
-fi
+	mkdir produit_bib
+fi 
+
+for i in fr mg en
+do
+	fichier="produit_bib/tubercule-test_$i.c"
+	if [[ ! -e $fichier ]]
+	then
+		gen_entete $fichier
+	fi
+done
 
 ### CHOSIR LE NOM & L'AUTE CRITERE ###
 
@@ -235,21 +242,26 @@ echo -n "Generation de text ... "
 RANG=$(grep "NBR=" $fichier | cut -d"=" -f2 | cut -d";" -f1)
 n=$(($n+1)) 	#incremente le
 
-#changer le nombre de produit
-sed -i s/NBR=${RANG}/NBR=${n}/ $fichier
+for i in fr mg en
+do
+	fichier=produit_bib/tubercule-test_$i.c
+	#changer le nombre de produit
+	sed -i s/NBR=${RANG}/NBR=${n}/ $fichier
 
-#suprime le accolade fermé
-sed -i /"}"/d $fichier
+	#suprime le accolade fermé
+	sed -i /"}"/d $fichier
 
-## ajout de produit
+	## ajout de produit
+	case $i in
+		fr) p_nom=$p_nom_fr ;;
+		mg) p_nom=$p_nom_mg ;; 
+		en) p_nom=$p_nom_en ;;
+		*) ;;
+	esac
+	gen_file $fichier $RANG $p_nom $p_type $p_sol $p_sais $p_mois 
+	echo -e "\n}">>$fichier
 
-#pour langue fr
-gen_file $fichier $RANG $p_nom_fr $p_type $p_sol $p_sais $p_mois 
-echo -e "\n}">>$fichier
-
-#pour la langue mg
-
-#pour la langue en
+done
 
 #signale de terminaison
 sleep 0.5
