@@ -20,14 +20,14 @@ BLANC="\e[0m"
 
 source outil/gen_text.sh # fichier contenant de text à generer
 
-if [[ ! -e "produit_bib" ]]
+if [[ ! -e "../produit_bib" ]]
 then
-	mkdir produit_bib
+	mkdir "../produit_bib"
 fi 
 
 for i in fr mg en
 do
-	fichier="produit_bib/tubercule-test_$i.c"
+	fichier="../produit_bib/tubercule-test_$i.c"
 	if [[ ! -e $fichier ]]
 	then
 		gen_entete $fichier
@@ -245,7 +245,7 @@ n=$(($n+1)) 	#incremente le
 
 for i in fr mg en
 do
-	fichier=produit_bib/tubercule-test_$i.c
+	fichier="../produit_bib/tubercule-test_$i.c"
 	#changer le nombre de produit
 	sed -i s/NBR=${RANG}/NBR=${n}/ $fichier
 
