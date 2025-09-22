@@ -13,7 +13,14 @@ mp_sol () {
 	echo "1) Sol sableux"
         echo "2) Sol argileux"
         echo "3) Sol limoneux"
-        echo "4)Sol humifère (ou organique)"
+        echo "4) Sol humifère (ou organique)"
+        echo "5) Humide" 
+        echo "6) Aquatique"
+        echo "7) Meuble" 
+        echo "8) Riche" 
+        echo "9) Vaseux" 
+        echo "10) Léger" 
+        echo "11) Drainé" 
         echo "0) INDEFINIT"
 }
 

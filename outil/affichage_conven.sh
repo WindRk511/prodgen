@@ -16,6 +16,13 @@ case $1 in
         2) echo -n "Sol argileux," ;;
         3) echo -n "Sol limoneux," ;;
         4) echo -n "Sol humifère (ou organique)," ;;
+        5) echo -n "humide" ;;
+        6) echo -n "Aquatique" ;;
+        7) echo -n "Meuble" ;;
+        8) echo -n "Riche" ;;
+        9) echo -n "Vaseux" ;;
+        10) echo -n "Léger" ;;
+        11) echo -n "Drainé" ;;
         *) echo -n "INDEFINIT," ;;
 esac
 }
