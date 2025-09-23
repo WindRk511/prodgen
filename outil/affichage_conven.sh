@@ -33,6 +33,7 @@ case $1 in
         2) echo -n "chaud," ;; 
         3) echo -n "pluie," ;; 
         4) echo -n "sec," ;;
+        5) echo -n "tempéré," ;;
         *) echo -n "INDEFINIT," ;;
 esac
 }

@@ -116,7 +116,7 @@ do
 	while [[ $i -le $NSAIS ]]
 	do
 		ref=$(echo $p_sais | cut -d"," -f $i )
-		if [[ $ref -lt 0 ]] || [[ $ref -gt 4 ]] || [[ ! "$ref" =~ ^[0-9]+$ ]]
+		if [[ $ref -lt 0 ]] || [[ $ref -gt 5 ]] || [[ ! "$ref" =~ ^[0-9]+$ ]]
 		then
 			echo -e "\e[31mCHOIX ${i} INCORRECT !!!\e[0m\n"
 			echo "Rechoisir svp"
@@ -240,6 +240,7 @@ echo -e "==========================================================\n"
 echo -n "Generation de text ... "
 
 #recupère le variable de contient le nombre de produit disponible
+fichier="produit_bib/tubercule-test_mg.c"
 RANG=$(grep "NBR=" $fichier | cut -d"=" -f2 | cut -d";" -f1)
 n=$(($RANG+1)) 	#incremente le
 

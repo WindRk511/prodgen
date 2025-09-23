@@ -29,6 +29,7 @@ mp_saison () {
         echo "2) chaud" 
         echo "3) pluie" 
         echo "4) sec"
+        echo "5) tempéré"
         echo "0) INDEFINIT"
 }
 
