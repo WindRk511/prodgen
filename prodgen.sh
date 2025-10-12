@@ -231,7 +231,7 @@ do
 		echo "processus annulé"
 		exit 1
 	fi
-	echo -e "$ROUGE Veuiller reponde oui ou non $BLANC"
+	echo -e "$ROUGE Veuiller repondre oui ou non $BLANC"
 done
 
 echo -e "==========================================================\n"
