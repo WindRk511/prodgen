@@ -97,4 +97,29 @@ prod* tubercule()
 	tub[5].mois[0]=10;
 	tub[5].mois[1]=11;
 
+	strcy(tub->nom,"nn");
+	tub[2].type=5;
+	tub[2].sol[0]=3;
+	tub[2].sais[0]=4;
+	tub[2].mois[0]=4;
+
+	strcy(tub->nom,"L");
+	tub[1].type=2;
+	tub[1].sol[0]=3;
+	tub[1].sais[0]=4;
+	tub[1].mois[0]=12;
+
+	strcy(tub->nom,"S");
+	tub[1].type=5;
+	tub[1].sol[0]=2;
+	tub[1].sais[0]=3;
+	tub[1].mois[0]=6;
+
+	strcy(tub->nom,"X");
+	tub[1].type=5;
+	tub[1].sol[0]=2;
+	tub[1].sais[0]=3;
+	tub[1].mois[0]=1;
+	return tub;
+
 }

@@ -14,7 +14,7 @@
 prod* tubercule()
 {
         int NBR;
-        NBR=2;
+        NBR=1;
         prod* tub = malloc((NBR+1)*sizeof(prod));
 
 	strcy(tub->nom,OVY);
@@ -99,5 +99,30 @@ prod* tubercule()
 	tub[5].sais[0]=8;
 	tub[5].sais[1]=7;
 	tub[5].mois[0]=3;
+
+	strcy(tub->nom,"oo");
+	tub[2].type=5;
+	tub[2].sol[0]=3;
+	tub[2].sais[0]=4;
+	tub[2].mois[0]=4;
+
+	strcy(tub->nom,"K");
+	tub[1].type=2;
+	tub[1].sol[0]=3;
+	tub[1].sais[0]=4;
+	tub[1].mois[0]=12;
+
+	strcy(tub->nom,"D");
+	tub[1].type=5;
+	tub[1].sol[0]=2;
+	tub[1].sais[0]=3;
+	tub[1].mois[0]=6;
+
+	strcy(tub->nom,"D");
+	tub[1].type=5;
+	tub[1].sol[0]=2;
+	tub[1].sais[0]=3;
+	tub[1].mois[0]=1;
+	return tub;
 
 }
