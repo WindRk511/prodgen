@@ -14,7 +14,7 @@ ROUGE="\e[31m"
 VERT="\e[32m"
 ORANGE="\e[33m"
 BLANC="\e[0m"
-
+FILE_GEN="racine"
 #read -n "Entrer le nom du fichier" fichier
 #cp tubercule.c tubercule-test.c
 
@@ -27,7 +27,7 @@ fi
 
 for i in fr mg en
 do
-	fichier="produit_bib/tubercule-test_$i.c"
+	fichier="produit_bib/${FILE_GEN}_$i.c"
 	if [[ ! -e $fichier ]]
 	then
 		gen_entete $fichier
@@ -240,7 +240,7 @@ echo -e "==========================================================\n"
 echo -n "Generation de text ... "
 
 #recupère le variable de contient le nombre de produit disponible
-fichier="produit_bib/tubercule-test_mg.c"
+fichier="${FILE_GEN}_fr.c"
 RANG=$(grep "NBR=" $fichier | cut -d"=" -f2 | cut -d";" -f1)
 n=$(($RANG+1)) 	#incremente le
 
