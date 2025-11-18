@@ -37,6 +37,7 @@ gen_file () {
                 echo -e "	tub[$2].mois[$((i-1))]=$ref;">>$1
                 i=$(($i+1))
         done
+	echo -e "\n	return tub;">>$1
 }
 
 # entete & base
@@ -63,6 +64,6 @@ gen_entete () {
 	echo "        NBR=0;">>$1
 	echo "        prod* tub = malloc((NBR+1)*sizeof(prod));">>$1
 	echo "">>$1
-	echo "}">>$1
+	echo -e"	return tub;\n}">>$1
 }
 

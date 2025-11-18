@@ -7,7 +7,7 @@
 #	int sais[4];
 #	int mois[12];
 # prod;
-
+set -e
 
 #couleur
 ROUGE="\e[31m"
@@ -231,7 +231,7 @@ do
 		echo "processus annulé"
 		exit 1
 	fi
-	echo -e "$ROUGE Veuiller reponde oui ou non $BLANC"
+	echo -e "$ROUGE Veuiller repondre oui ou non $BLANC"
 done
 
 echo -e "==========================================================\n"
@@ -252,6 +252,9 @@ do
 
 	#suprime le accolade fermé
 	sed -i /"}"/d $fichier
+
+	#suppression de return
+	sed -i /"return tub;"/d $fichier
 
 	## ajout de produit
 	case $i in
