@@ -15,6 +15,7 @@ VERT="\e[32m"
 ORANGE="\e[33m"
 BLANC="\e[0m"
 FILE_GEN="racine"
+FONCT_NAME="racine"
 #read -n "Entrer le nom du fichier" fichier
 #cp tubercule.c tubercule-test.c
 
@@ -30,7 +31,7 @@ do
 	fichier="produit_bib/${FILE_GEN}_$i.c"
 	if [[ ! -e $fichier ]]
 	then
-		gen_entete $fichier
+		gen_entete $fichier ${FONCT_NAME}
 	fi
 done
 
@@ -241,20 +242,27 @@ echo -n "Generation de text ... "
 
 #recupère le variable de contient le nombre de produit disponible
 fichier="${FILE_GEN}_fr.c"
-RANG=$(grep "NBR=" $fichier | cut -d"=" -f2 | cut -d";" -f1)
+
+if [[ -e $fichier ]]
+then
+	RANG=$(grep "NBR=" $fichier | cut -d"=" -f2 | cut -d";" -f1)
+else
+	RANG=0
+fi
 n=$(($RANG+1)) 	#incremente le
 
 for i in fr mg en
 do
-	fichier="produit_bib/tubercule-test_$i.c"
+	fichier="produit_bib/${FILE_GEN}_$i.c"
 	#changer le nombre de produit
 	sed -i s/NBR=${RANG}/NBR=${n}/ $fichier
 
 	#suprime le accolade fermé
-	sed -i /"}"/d $fichier
+	sed -i '$d' $fichier
 
 	#suppression de return
-	sed -i /"return tub;"/d $fichier
+	a=$(tail -n 2 ${fichier})
+	sed -i -e /"return tub;"/d $fichier
 
 	## ajout de produit
 	case $i in
@@ -264,7 +272,6 @@ do
 		*) ;;
 	esac
 	gen_file $fichier $RANG $p_nom $p_type $p_sol $p_sais $p_mois 
-	echo -e "\n}">>$fichier
 
 done
 

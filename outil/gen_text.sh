@@ -3,7 +3,7 @@
 ## syntaxe gen_file [nom de fichier] [rang] [nom de produit] [type] [sol] [saison] [mois] 
 gen_file () {
 	#nom de produit
-	echo -e "	strcy(tub->nom,\"$3\");">>$1
+	echo -e "	strcy(tub[$2].nom,\"$3\");">>$1
 
 	# type de produit
 	echo -e "	tub[$2].type=$p_type;">>$1
@@ -37,7 +37,7 @@ gen_file () {
                 echo -e "	tub[$2].mois[$((i-1))]=$ref;">>$1
                 i=$(($i+1))
         done
-	echo -e "\n	return tub;">>$1
+	echo -e "\n	return tub;\n}">>$1
 }
 
 # entete & base
@@ -52,18 +52,20 @@ gen_entete () {
 	echo "#include<stdlib.h>">>$1
 	echo "#include<string.h>">>$1
 	echo "">>$1
-	echo "/** @fn cette fonction qui stock le donnée de tubercule">>$1
+	echo "/** @fn cette fonction qui stock le donnée de $2">>$1
 	echo "* @param void">>$1
 	echo "* @return prod*">>$1
 	echo "*/">>$1
-	echo "prod* tubercule()">>$1
-	echo "{">>$1
-	echo "prod* tubercule()">>$1
+	echo "prod* ${2}()">>$1
 	echo "{">>$1
 	echo "        int NBR;">>$1
 	echo "        NBR=0;">>$1
 	echo "        prod* tub = malloc((NBR+1)*sizeof(prod));">>$1
+	echo "	for (int i=0; i<NBR; i++)">>$1
+	echo "	{">>$1
+	echo "		tub[i].ntp=NBR;">>$1
+	echo "	}">>$1
 	echo "">>$1
-	echo -e"	return tub;\n}">>$1
+	echo -e "	return tub;\n}">>$1
 }
 
