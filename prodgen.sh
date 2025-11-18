@@ -14,21 +14,20 @@ ROUGE="\e[31m"
 VERT="\e[32m"
 ORANGE="\e[33m"
 BLANC="\e[0m"
-FILE_GEN="racine"
-FONCT_NAME="racine"
-#read -n "Entrer le nom du fichier" fichier
-#cp tubercule.c tubercule-test.c
+FILE_GEN="racine"	#nom de fichier
+FONCT_NAME="racine"	#nom de fonction principale
+DIR_G="racine_lib"	#nom de dossier 
 
 source outil/gen_text.sh # fichier contenant de text à generer
 
-if [[ ! -e "produit_bib" ]]
+if [[ ! -e "${DIR_G}" ]]
 then
-	mkdir "produit_bib"
+	mkdir "${DIR_G}"
 fi 
 
 for i in fr mg en
 do
-	fichier="produit_bib/${FILE_GEN}_$i.c"
+	fichier="${DIR_G}"/${FILE_GEN}_$i.c"
 	if [[ ! -e $fichier ]]
 	then
 		gen_entete $fichier ${FONCT_NAME}
@@ -241,7 +240,7 @@ echo -e "==========================================================\n"
 echo -n "Generation de text ... "
 
 #recupère le variable de contient le nombre de produit disponible
-fichier="${FILE_GEN}_fr.c"
+fichier="${DIR_G}/${FILE_GEN}_fr.c"
 
 if [[ -e $fichier ]]
 then
@@ -253,7 +252,7 @@ n=$(($RANG+1)) 	#incremente le
 
 for i in fr mg en
 do
-	fichier="produit_bib/${FILE_GEN}_$i.c"
+	fichier="${DIR_G}/${FILE_GEN}_$i.c"
 	#changer le nombre de produit
 	sed -i s/NBR=${RANG}/NBR=${n}/ $fichier
 
