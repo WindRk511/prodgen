@@ -27,7 +27,7 @@ fi
 
 for i in fr mg en
 do
-	fichier="${DIR_G}"/${FILE_GEN}_$i.c"
+	fichier="${DIR_G}/${FILE_GEN}_$i.c"
 	if [[ ! -e $fichier ]]
 	then
 		gen_entete $fichier ${FONCT_NAME}
@@ -94,7 +94,8 @@ do
 		fi
 		i=$((i+1))
 	done
-	if [[ $t -eq 0 ]]; then
+	if [[ $t -eq 0 ]]
+	then
 		break
 	fi
 done
