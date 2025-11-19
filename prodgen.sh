@@ -27,10 +27,11 @@ fi
 
 for i in fr mg en
 do
-	fichier="${DIR_G}/${FILE_GEN}_$i.c"
+	fichier="${FILE_GEN}_$i.c"
+	file_path="${DIR_G}/${fichier}"
 	if [[ ! -e $fichier ]]
 	then
-		gen_entete $fichier ${FONCT_NAME}
+		gen_entete ${file_path} ${FONCT_NAME} ${fichier}
 	fi
 done
 
@@ -223,8 +224,8 @@ echo ""
 #phrase de confirmation
 while (true)
 do
-	read -p " Est ce que tout est correcte ? (oui/non) : " v
-	if [[ $v == "oui" ]]
+	read -r -p " Est ce que tout est correcte ? (oui(entre)/non) : " v
+	if [[ $v == "oui" ]] || [[ $v == "" ]]
 	then
 		break
 	elif [[ $v == "non" ]]

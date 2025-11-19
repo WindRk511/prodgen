@@ -43,11 +43,11 @@ gen_file () {
 # entete & base
 #syntaxe : gen_entete [nom de fichier]
 gen_entete () {
-	echo -e "/**@file tubercule.c">$1
+	echo -e "/**@file $3">$1
 	echo "* @brief cette programme qui stock les information basique des tubercules">>$1
 	echo "* @author Windrick">>$1
 	echo "*/">>$1
-	echo "#include prod.h">>$1
+	echo "#include \"prod.h\"">>$1
 	echo "#include<stdio.h>">>$1
 	echo "#include<stdlib.h>">>$1
 	echo "#include<string.h>">>$1
