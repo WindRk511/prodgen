@@ -3,7 +3,7 @@
 ## syntaxe gen_file [nom de fichier] [rang] [nom de produit] [type] [sol] [saison] [mois] 
 gen_file () {
 	#nom de produit
-	echo -e "	strcy(tub[$2].nom,\"$3\");">>$1
+	echo -e "	strcpy(tub[$2].nom,\"$3\");">>$1
 
 	# type de produit
 	echo -e "	tub[$2].type=$p_type;">>$1
