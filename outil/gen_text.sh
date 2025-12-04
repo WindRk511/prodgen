@@ -41,10 +41,10 @@ gen_file () {
 }
 
 # entete & base
-#syntaxe : gen_entete [nom de fichier]
+#syntaxe : gen_entete [nom de fichier] [produit]
 gen_entete () {
 	echo -e "/**@file $3">$1
-	echo "* @brief cette programme qui stock les information basique des tubercules">>$1
+	echo "* @brief cette programme qui stock les information basique des $2">>$1
 	echo "* @author Windrick">>$1
 	echo "*/">>$1
 	echo "#include \"prod.h\"">>$1

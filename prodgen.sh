@@ -15,15 +15,15 @@ VERT="\e[32m"
 ORANGE="\e[33m"
 BLANC="\e[0m"
 FILE_GEN="racine"	#nom de fichier
-FONCT_NAME="racine"	#nom de fonction principale
-DIR_G="racine_lib"	#nom de dossier 
+FONCT_NAME="{$FILE_GEN}"	#nom de fonction principale
+DIR_G="${FONCT_NAME}_lib"	#nom de dossier 
 
 source outil/gen_text.sh # fichier contenant de text à generer
 
 if [[ ! -e "${DIR_G}" ]]
 then
 	mkdir "${DIR_G}"
-fi 
+#fi 
 
 for i in fr mg en
 do
@@ -34,6 +34,8 @@ do
 		gen_entete ${file_path} ${FONCT_NAME} ${fichier}
 	fi
 done
+
+fi
 
 ### CHOSIR LE NOM & L'AUTE CRITERE ###
 
