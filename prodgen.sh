@@ -14,8 +14,8 @@ ROUGE="\e[31m"
 VERT="\e[32m"
 ORANGE="\e[33m"
 BLANC="\e[0m"
-FILE_GEN="racine"	#nom de fichier
-FONCT_NAME="{$FILE_GEN}"	#nom de fonction principale
+FILE_GEN="legume"	#nom de fichier
+FONCT_NAME="${FILE_GEN}"	#nom de fonction principale
 DIR_G="${FONCT_NAME}_lib"	#nom de dossier 
 
 source outil/gen_text.sh # fichier contenant de text à generer
